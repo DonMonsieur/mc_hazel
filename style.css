@@ -180,3 +180,145 @@ body {
   font-weight: 800;
   font-size: 1.4rem !important;
 }
+
+/* --- Sunflower Gate + Blur Lock --- */
+
+/* When locked, blur the content (still scrolls the page) */
+.letter.is-locked {
+  filter: blur(14px);
+  opacity: 0.85;
+  transform: translateZ(0); /* smoother blur */
+  pointer-events: none; /* prevents selecting while locked */
+}
+
+/* Gate overlay centered above the letter */
+.sun-gate {
+  width: min(92vw, 820px);
+  margin: 0 auto 1rem;
+  display: grid;
+  place-items: center;
+}
+
+.sun-gate-card {
+  width: 100%;
+  border-radius: 18px;
+  padding: 1.25rem 1.25rem 1rem;
+  border: 1px solid #00000010;
+
+  background:
+    radial-gradient(circle at 20% 20%, #ffffffcc 0 40%, #0000 70%),
+    radial-gradient(circle at 80% 10%, #ffffffaa 0 35%, #0000 65%),
+    linear-gradient(180deg, #fff6d6, #ffe7a3 65%, #ffdc7a);
+
+  box-shadow:
+    0 24px 70px -50px #6b3e00,
+    inset 0 0 22px -10px #cfa86b;
+}
+
+.sun-gate-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+  margin: 0 auto 0.6rem;
+
+  background:
+    radial-gradient(circle at 50% 50%, #4b2a17 0 28%, #0000 30%),
+    conic-gradient(from 0deg, #ffcc33 0 12deg, #0000 12deg 24deg);
+  box-shadow: 0 14px 30px -20px #6b3e00;
+}
+
+.sun-gate-title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--letter-font);
+  font-size: 1.8rem;
+  color: #3a200f;
+}
+
+.sun-gate-sub {
+  margin: 0.35rem 0 0.9rem;
+  text-align: center;
+  font-family: var(--letter-font);
+  font-size: 1.1rem;
+  color: #5a341c;
+  opacity: 0.95;
+}
+
+.sun-gate-form {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sun-gate-label {
+  font-family: var(--letter-font);
+  font-size: 1rem;
+  color: #5a341c;
+}
+
+.sun-gate-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.6rem;
+}
+
+.sun-gate-input {
+  width: 100%;
+  font-family: var(--letter-font);
+  font-size: 1.2rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 14px;
+  border: 1px solid #0000001a;
+  outline: none;
+
+  background: linear-gradient(180deg, #fffdf6, #fff3cc);
+  box-shadow: inset 0 0 18px -12px #b98a2c;
+}
+
+.sun-gate-input:focus {
+  border-color: #f6b400;
+  box-shadow:
+    0 0 0 4px #ffd54a55,
+    inset 0 0 18px -12px #b98a2c;
+}
+
+.sun-gate-btn {
+  font-family: var(--letter-font);
+  font-size: 1.2rem;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  border: 1px solid #00000018;
+  cursor: pointer;
+
+  background: linear-gradient(180deg, #ffcc33, #f6b400);
+  color: #2c1a10;
+
+  box-shadow: 0 18px 40px -30px #6b3e00;
+}
+
+.sun-gate-btn:hover {
+  transform: translateY(-1px);
+}
+
+.sun-gate-hint {
+  margin: 0;
+  font-family: var(--letter-font);
+  color: #5a341c;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.sun-gate-error {
+  margin: 0;
+  font-family: var(--letter-font);
+  text-align: center;
+  color: #8a3b12;
+  min-height: 1.2em;
+}
+
+/* When unlocked, hide the gate */
+.sun-gate.is-hidden {
+  display: none;
+}
