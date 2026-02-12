@@ -2,39 +2,17 @@
 
 /* 🌻 Sunflower palette + soft paper */
 :root {
-  --envelope-x: 300px;
-  --envelope-y: 200px;
-
   --sun-sky: #fff6cc;
   --sun-glow: #ffd54a;
   --sun-petal: #ffcc33;
   --sun-petal-deep: #f6b400;
   --sun-center: #4b2a17;
 
-  --envelope-bg: #ffe39a;
-  --envelope-shadow: #d6a84b;
-
-  --letter-x: 250px;
-  --letter-y: calc(250px - 1rem - 10px);
-
   --letter-bg: #fff6e6;
   --letter-shadow: #e1c08d;
   --letter-text: #2c1a10;
   --letter-font: "Dancing Script", serif;
-
   --letter-button-text: #8a3b12;
-
-  --heart-bg: var(--sun-petal-deep);
-  --heart-text: #2c1a10;
-}
-
-@media (min-width: 650px) {
-  :root {
-    --envelope-x: 600px;
-    --envelope-y: 400px;
-    --letter-x: 500px;
-    --letter-y: calc(400px - 1rem - 10px);
-  }
 }
 
 html {
@@ -55,15 +33,18 @@ body {
   color: var(--letter-text);
 }
 
-/* Cute header */
+/* Make the page scroll naturally */
+.cssletter {
+  position: relative;
+  width: 100%;
+  padding: 8rem 1rem 6rem; /* space for header + breathing room */
+}
+
+/* Header stays at top of page layout */
 .sun-header {
-  position: absolute;
-  top: 4vh;
-  left: 50%;
-  transform: translateX(-50%);
   text-align: center;
   width: min(92vw, 720px);
-  pointer-events: none;
+  margin: 0 auto 2.5rem;
 }
 
 .sun-header h1 {
@@ -83,341 +64,98 @@ body {
   opacity: 0.92;
 }
 
-.cssletter {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  -webkit-user-select: none;
-  margin: 22dvh 0;
+/* Center the letter block */
+.letters {
+  display: grid;
+  place-items: center;
 }
 
-/* Envelope: sunflower paper */
-.envelope {
-  position: relative;
-  width: var(--envelope-x);
-  height: var(--envelope-y);
-  background: linear-gradient(180deg, #fff0b9, var(--envelope-bg));
-  box-shadow:
-    inset 0 0 30px -5px var(--envelope-shadow),
-    0 30px 120px -60px #8a5a00,
-    0 0 60vw 0 #fff6cc;
-  border-radius: 18px;
-  outline: 2px solid #0000;
-}
-
-/* Sunflower watermark */
-.envelope::before {
-  content: "🌻";
-  font-size: 5.2rem;
-  position: absolute;
-  left: 50%;
-  top: 32%;
-  transform: translate(-50%, -50%);
-  opacity: 0.24;
-  filter: saturate(1.1);
-  mix-blend-mode: multiply;
-}
-
-/* Extra tiny petals around watermark */
-.envelope.sunflower::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 30%;
-  width: 120px;
-  height: 120px;
-  transform: translate(-50%, -50%);
-  background:
-    radial-gradient(circle at 50% 50%, var(--sun-center) 0 18%, #0000 19%),
-    conic-gradient(
-      from 0deg,
-      var(--sun-petal) 0 10deg,
-      #0000 10deg 20deg,
-      var(--sun-petal) 20deg 30deg,
-      #0000 30deg 40deg,
-      var(--sun-petal) 40deg 50deg,
-      #0000 50deg 60deg,
-      var(--sun-petal) 60deg 70deg,
-      #0000 70deg 80deg,
-      var(--sun-petal) 80deg 90deg,
-      #0000 90deg 100deg,
-      var(--sun-petal) 100deg 110deg,
-      #0000 110deg 120deg,
-      var(--sun-petal) 120deg 130deg,
-      #0000 130deg 140deg,
-      var(--sun-petal) 140deg 150deg,
-      #0000 150deg 160deg,
-      var(--sun-petal) 160deg 170deg,
-      #0000 170deg 180deg,
-      var(--sun-petal) 180deg 190deg,
-      #0000 190deg 200deg,
-      var(--sun-petal) 200deg 210deg,
-      #0000 210deg 220deg,
-      var(--sun-petal) 220deg 230deg,
-      #0000 230deg 240deg,
-      var(--sun-petal) 240deg 250deg,
-      #0000 250deg 260deg,
-      var(--sun-petal) 260deg 270deg,
-      #0000 270deg 280deg,
-      var(--sun-petal) 280deg 290deg,
-      #0000 290deg 300deg,
-      var(--sun-petal) 300deg 310deg,
-      #0000 310deg 320deg,
-      var(--sun-petal) 320deg 330deg,
-      #0000 330deg 340deg,
-      var(--sun-petal) 340deg 350deg,
-      #0000 350deg 360deg
-    );
-  opacity: 0.22;
-  border-radius: 50%;
-}
-
-.envelope-flap {
-  width: 100%;
-  height: 71%;
-  position: absolute;
-  top: 0;
-  z-index: 3;
-  overflow: hidden;
-  transition: 0.6s linear all;
-  transform-origin: top;
-  pointer-events: all;
-}
-
-.envelope-folds {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 2;
-  position: absolute;
-  inset: 0;
-}
-
-.envelope-flap::before,
-.envelope-left::before,
-.envelope-right::before,
-.envelope-bottom::before {
-  content: "";
-  transform: rotate(45deg);
-  background: linear-gradient(180deg, #fff0b9, var(--envelope-bg));
-  box-shadow: 0 0 30px -5px var(--envelope-shadow);
-  width: 100%;
-  aspect-ratio: 1;
-  display: block;
-  position: absolute;
-  top: 60%;
-}
-
-.envelope-flap::before {
-  border-radius: 5rem;
-  bottom: 30px;
-  top: auto;
-}
-
-@media (min-width: 650px) {
-  .envelope-flap::before {
-    bottom: 100px;
-  }
-}
-
-.envelope-left::before {
-  top: 10%;
-  left: -65%;
-}
-
-.envelope-right::before {
-  top: 10%;
-  right: -65%;
-}
-
-.envelope-bottom::before {
-  top: 60%;
-  border-radius: 5rem;
-}
-
-/* 🌻 Sunflower seal button (still using your heart shape, but sunflower colors + glow) */
-.heart {
-  z-index: 4;
-  position: relative;
-  border: none;
-  width: 78px;
-  aspect-ratio: 1;
-  background:
-    radial-gradient(circle at 60% 65%, var(--sun-petal-deep) 64%, #0000 65%) top
-      left/50% 50%,
-    radial-gradient(circle at 40% 65%, var(--sun-petal-deep) 64%, #0000 65%) top
-      right/50% 50%,
-    conic-gradient(from -45deg at 50% 85.5%, var(--sun-petal-deep) 90deg, #0000 0)
-      bottom/100% 50%;
-  background-repeat: no-repeat;
-  left: 50%;
-  top: 70%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  filter: drop-shadow(0 12px 18px #8a5a0080);
-}
-
-@media (min-width: 650px) {
-  .heart {
-    width: 160px;
-  }
-}
-
-.heart::before {
-  content: "";
-  position: absolute;
-  inset: -14px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 50%, var(--sun-center) 0 20%, #0000 22%),
-    conic-gradient(
-      from 0deg,
-      var(--sun-petal) 0 12deg,
-      #0000 12deg 24deg
-    );
-  opacity: 0;
-  transform: scale(0.7);
-  transition: 0.25s ease all;
-  z-index: -1;
-  filter: blur(0.2px);
-}
-
-.heart:hover::before,
-.heart:active::before,
-.heart:focus::before {
-  opacity: 0.95;
-  transform: scale(1);
-}
-
-.heart-text {
-  transform: translateY(-10px);
-  display: block;
-  color: var(--heart-text);
-  font-size: 1.6rem;
-  font-family: var(--letter-font);
-  text-shadow: 0 6px 24px #fff3b3;
-}
-
-.envelope.active * {
-  pointer-events: none;
-}
-
-.envelope.active .envelope-flap {
-  transform: rotateX(-180deg) translateY(0);
-  perspective: 10px;
-}
-
-.envelope.active .envelope-flap::before {
-  box-shadow: inset 0 0 30px -5px var(--envelope-shadow);
-}
-
-.envelope.active .heart {
-  display: none;
-}
-
-/* Letters: paper + sunflower corner marks */
+/* ✅ The letter is no longer a "card with its own scrollbar"
+   It becomes a long page that expands, and the BODY scrolls. */
 .letter {
   box-sizing: border-box;
-  font-family: var(--letter-font);
-  font-size: 1rem;
-  line-height: 1.15;
-  color: var(--letter-text);
-  width: var(--letter-x);
-  height: var(--letter-y);
+  position: relative;
 
-  user-select: none;
-  padding: 3rem 1.2rem 1.2rem;
-  margin: 0;
-  cursor: grab;
-  position: absolute;
-  top: 1rem;
-  overflow: auto;
-  text-align: center;
-  border: 0;
+  width: min(92vw, 820px);
+  margin: 0 auto;
+
+  font-family: var(--letter-font);
+  color: var(--letter-text);
+
+  /* Remove overflow auto (so it doesn't scroll inside) */
+  overflow: visible;
+
+  padding: 3.5rem 1.6rem 2rem;
+  border-radius: 18px;
+  border: 1px solid #0000000d;
 
   background:
-    radial-gradient(circle at 10% 12%, #0000 0 18px, #ffffff66 19px 20px, #0000
-      21px),
-    radial-gradient(circle at 90% 12%, #0000 0 18px, #ffffff66 19px 20px, #0000
-      21px),
-    radial-gradient(circle at 10% 88%, #0000 0 18px, #ffffff66 19px 20px, #0000
-      21px),
-    radial-gradient(circle at 90% 88%, #0000 0 18px, #ffffff66 19px 20px, #0000
-      21px),
-    linear-gradient(180deg, #fffdf6, var(--letter-bg));
+    radial-gradient(120% 90% at 50% 10%, #ffffffaa 0 45%, #0000 75%),
+    radial-gradient(120% 90% at 50% 100%, #7a4b0014 0 45%, #0000 75%),
+    repeating-linear-gradient(0deg, #0000 0 9px, #00000006 9px 10px),
+    repeating-linear-gradient(90deg, #0000 0 13px, #00000005 13px 14px),
+    radial-gradient(circle at 12% 18%, #ffd54a1f 0 60px, #0000 61px),
+    radial-gradient(circle at 88% 82%, #ffcc331a 0 80px, #0000 81px),
+    linear-gradient(180deg, #fff2bf, #ffe79f 60%, #ffe08a);
+
   box-shadow:
-    inset 0 0 20px -5px var(--letter-shadow),
-    0 18px 60px -40px #6b3e00;
-  border-radius: 18px;
+    inset 0 0 22px -8px #cfa86b,
+    0 24px 90px -60px #6b3e00;
 }
 
-.letter::before {
-  content: "🌻";
-  position: absolute;
-  top: 0.9rem;
-  left: 1rem;
-  opacity: 0.55;
-  font-size: 1.2rem;
-}
-
+/* Sunflower corners */
+.letter::before,
 .letter::after {
   content: "🌻";
   position: absolute;
-  top: 0.9rem;
-  right: 1rem;
+  top: 1rem;
   opacity: 0.55;
   font-size: 1.2rem;
 }
-
-.letter:active {
-  cursor: grabbing;
+.letter::before {
+  left: 1rem;
+}
+.letter::after {
+  right: 1rem;
 }
 
-.letter.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+/* Make text readable for long content */
+.letter p {
+  text-align: left;
+  line-height: 1.65;
+  font-size: clamp(1.1rem, 1.15vw, 1.4rem);
+
+  max-width: 66ch;
+  margin: 0 auto;
+  letter-spacing: 0.01em;
 }
 
+/* Signature */
 .letter cite {
-  font-size: 1.35rem;
+  display: block;
+  margin-top: 1.5rem;
+  text-align: right;
+  font-size: 1.5rem;
   color: #3a200f;
-  margin-top: 1rem;
 }
-
 .letter cite::before {
   content: none;
 }
 
-.letter:nth-child(even) {
-  transform: skew(-1.5deg) translateY(-4px);
-}
-
-.letter:nth-child(odd) {
-  transform: skew(1.5deg) translateY(4px);
-}
-
-@media (min-width: 650px) {
-  .letter {
-    font-size: 1.35rem;
-  }
-}
-
-/* Close button: sunflower-to-x */
+/* Close button: pinned near top of letter (optional) */
 .closeLetter {
   font-size: 0 !important;
-  position: absolute;
-  top: 1rem;
+  position: sticky;
+  top: 0.75rem;
   left: 50%;
   transform: translateX(-50%);
+  display: block;
+
   background: none;
   padding: 0;
   border: 0;
+  z-index: 5;
+  cursor: pointer;
 }
 
 .closeLetter::before {
@@ -425,39 +163,20 @@ body {
   font-size: 1.6rem !important;
   font-family: var(--letter-font);
   color: var(--letter-button-text);
-  text-align: center;
   filter: drop-shadow(0 6px 16px #ffd54a66);
-}
-
-.closeLetter:hover,
-.closeLetter:active,
-.closeLetter:focus {
-  background-color: transparent;
-  transform: translateX(-50%) scale(1.02);
 }
 
 .closeLetter:hover::before,
 .closeLetter:active::before,
 .closeLetter:focus::before {
   content: "✕";
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Arial,
+    sans-serif;
   font-weight: 800;
   font-size: 1.4rem !important;
-}
-
-/* Attribution */
-@import url("https://frills.dev/css/abstracts/_variables.css");
-@import url("https://frills.dev/css/components/_logo.css");
-
-footer {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 10000000;
-  opacity: 0.85;
-}
-
-footer svg {
-  width: 100px;
-  filter: drop-shadow(0 10px 22px #fff0b966);
 }
